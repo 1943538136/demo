@@ -198,6 +198,15 @@
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.10</version>
+        </dependency>
+        <!--<modelVersion>4.0.0</modelVersion>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.10</version>
+        <name>Apache Commons Lang</name>-->
     </dependencies>
     <dependencyManagement>
         <dependencies>
