@@ -1,4 +1,4 @@
-package com.example.demo.common.core;
+package com.example.demo.common.model;
 
 /**
  * Author :tanjm

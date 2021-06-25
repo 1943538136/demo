@@ -1,4 +1,4 @@
-package com.example.demo.common.core;
+package com.example.demo.common.model;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import java.util.List;
  * Author :tanjm
  * Date:  2021/6/22
  * Desc:
+ * @author tanjm
  */
 public class PageResponse<T> {
     private Integer current;

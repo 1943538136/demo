@@ -1,5 +1,7 @@
 package com.example.demo.common.exception;
 
+import com.example.demo.common.constant.SysErrorEnum;
+
 /**
  * 校验异常
  * <p>
@@ -11,12 +13,9 @@ package com.example.demo.common.exception;
  */
 public class ValException extends BaseException {
     public ValException() {
-        super(null, false);
-        super.setErrcode(2);
+        super(SysErrorEnum.PROC_ERROR);
     }
-
-    public ValException(String msg, boolean writableStackTrace) {
-        super(msg,  writableStackTrace);
-        super.setErrcode(2);
+    public ValException(String errmsg) {
+        super(SysErrorEnum.PARM_ERROR.getErrcode(), errmsg, false);
     }
 }

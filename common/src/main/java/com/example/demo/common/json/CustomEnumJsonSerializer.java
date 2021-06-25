@@ -1,6 +1,6 @@
 package com.example.demo.common.json;
 
-import com.example.demo.common.annotation.JacksonExpandFormat;
+import com.example.demo.common.annotation.JacksonFormat;
 import com.example.demo.common.util.EnumUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonStreamContext;
@@ -42,7 +42,7 @@ public class CustomEnumJsonSerializer extends JsonSerializer<Object> {
             Field findField = ReflectionUtils.findField(currentValue.getClass(), currentName);
             findField.setAccessible(true);
             // 设置age的值，必须指明修改的是哪个对象的属性
-            JacksonExpandFormat resExpandFormat = findField.getAnnotation(JacksonExpandFormat.class);
+            JacksonFormat resExpandFormat = findField.getAnnotation(JacksonFormat.class);
             if (null != resExpandFormat) {
                 Class enumClass = resExpandFormat.enumClass();
                 String enumText = "";

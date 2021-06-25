@@ -1,5 +1,7 @@
 package com.example.demo.common.exception;
 
+import com.example.demo.common.constant.SysErrorEnum;
+
 /**
  * 参数异常
  * <p>
@@ -12,12 +14,10 @@ package com.example.demo.common.exception;
  */
 public class ParmException extends BaseException {
     public ParmException() {
-        super(null, false);
-        super.setErrcode(1);
+        super(SysErrorEnum.PARM_ERROR);
     }
 
-    public ParmException(String msg, boolean writableStackTrace) {
-        super(msg, writableStackTrace);
-        super.setErrcode(1);
+    public ParmException(String errmsg) {
+        super(SysErrorEnum.PARM_ERROR.getErrcode(), errmsg, false);
     }
 }

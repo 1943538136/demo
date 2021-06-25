@@ -1,5 +1,7 @@
 package com.example.demo.common.exception;
 
+import com.example.demo.common.constant.SysErrorEnum;
+
 /**
  * 系统异常
  * <p>
@@ -11,12 +13,9 @@ package com.example.demo.common.exception;
  */
 public class SysException extends BaseException {
     public SysException() {
-        super(null, true);
-        super.setErrcode(-1);
+        super(SysErrorEnum.PROC_ERROR);
     }
-
-    public SysException(String msg, boolean writableStackTrace) {
-        super(msg, writableStackTrace);
-        super.setErrcode(-1);
+    public SysException(String errmsg) {
+        super(SysErrorEnum.PARM_ERROR.getErrcode(), errmsg, true);
     }
 }

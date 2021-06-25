@@ -1,5 +1,7 @@
 package com.example.demo.common.exception;
 
+import com.example.demo.common.constant.SysErrorEnum;
+
 /**
  * 流程异常，涉及业务逻辑的数据错误
  * <p>
@@ -11,12 +13,9 @@ package com.example.demo.common.exception;
  */
 public class ProcException extends BaseException {
     public ProcException() {
-        super(null, false);
-        super.setErrcode(3);
+        super(SysErrorEnum.PROC_ERROR);
     }
-
-    public ProcException(String msg, boolean writableStackTrace) {
-        super(msg, writableStackTrace);
-        super.setErrcode(3);
+    public ProcException(String errmsg) {
+        super(SysErrorEnum.PARM_ERROR.getErrcode(), errmsg, false);
     }
 }

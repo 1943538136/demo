@@ -7,6 +7,6 @@ package com.example.demo.common.util;
  */
 public class ExceptionUtils {
     public static void a(){
-
+//7265
     }
 }

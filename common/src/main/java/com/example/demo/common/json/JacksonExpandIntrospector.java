@@ -1,6 +1,6 @@
 package com.example.demo.common.json;
 
-import com.example.demo.common.annotation.JacksonExpandFormat;
+import com.example.demo.common.annotation.JacksonFormat;
 import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import org.slf4j.Logger;
@@ -26,9 +26,9 @@ public class JacksonExpandIntrospector extends JacksonAnnotationIntrospector {
 
     @Override
     public Object findSerializer(Annotated annotated) {
-        JacksonExpandFormat resExpandFormat = annotated.getAnnotation(JacksonExpandFormat.class);
-        if (resExpandFormat != null) {
-            Class<?> enumClass = resExpandFormat.enumClass();
+        JacksonFormat jacksonFormat = annotated.getAnnotation(JacksonFormat.class);
+        if (jacksonFormat != null) {
+            Class<?> enumClass = jacksonFormat.enumClass();
             if (null != enumClass && Enum.class.isAssignableFrom(enumClass)) {
                 Object jsonSerializer = JSON_SERIALIZER_MAP.get(KEY_CUSTOM_ENUM_JSON_SERIALIZER);
                 if (null != jsonSerializer) {

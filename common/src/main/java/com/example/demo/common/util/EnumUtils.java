@@ -1,7 +1,7 @@
 package com.example.demo.common.util;
 
 import com.example.demo.common.annotation.EnumDictDef;
-import com.example.demo.common.constant.YesNo;
+import com.example.demo.common.constant.YesNoEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,9 +81,9 @@ public class EnumUtils {
 
     public static void main(String[] args) {
         //EnumUtils.valueOf(EnumYesNo.class, 1);
-        System.out.println(EnumUtils.getText(YesNo.class, 1));
-        System.out.println(EnumUtils.getText(YesNo.class, 2));
-        System.out.println(EnumUtils.getText(YesNo.class, 3));
+        System.out.println(EnumUtils.getText(YesNoEnum.class, 1));
+        System.out.println(EnumUtils.getText(YesNoEnum.class, 2));
+        System.out.println(EnumUtils.getText(YesNoEnum.class, 3));
         //System.out.println(EnumUtils.getReadMethod(EnumYesNo.class,"value"));
     }
 }

@@ -5,6 +5,6 @@ package com.example.demo.common.constant;
  * Date:  2021/5/28
  * Desc:
  */
-public enum JacksonIgnoreEnumExpand {
+public enum IgnoreEnum {
     ;
 }

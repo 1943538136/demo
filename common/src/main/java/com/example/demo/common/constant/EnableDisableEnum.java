@@ -4,17 +4,17 @@ import com.example.demo.common.annotation.EnumDictDef;
 
 /**
  * Author :tanjm
- * Date:  2021/6/9
+ * Date:  2021/6/22
  * Desc:
  */
-@EnumDictDef(enumKey = DictDefKey.KEY_YES_NO, valueField = "value", textField = "text")
-public enum YesNo {
-    YES(1, "是"),
-    NO(2, "否");
+@EnumDictDef(enumKey = DictDefKey.KEY_ENABLE_DISABLE, valueField = "value", textField = "text")
+public enum EnableDisableEnum {
+    ENABLE(1, "启用"),
+    DISABLE(2, "禁用");
     private int value;
     private String text;
 
-    YesNo(int value, String text) {
+    EnableDisableEnum(int value, String text) {
         this.value = value;
         this.text = text;
     }

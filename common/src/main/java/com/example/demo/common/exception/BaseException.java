@@ -1,5 +1,7 @@
 package com.example.demo.common.exception;
 
+import com.example.demo.common.constant.SysError;
+
 /**
  * Author :tanjm
  * Date:  2021/6/22
@@ -8,14 +10,18 @@ package com.example.demo.common.exception;
 public class BaseException extends RuntimeException {
     protected Integer errcode;
     protected String errmsg;
-    protected Object errdesc;
 
     public BaseException() {
-        this(null, false);
     }
 
-    public BaseException(String msg, boolean writableStackTrace) {
-        super(msg, null, false, writableStackTrace);
+    public BaseException(SysError error) {
+        this(error.getErrcode(), error.getErrmsg(), false);
+    }
+
+    public BaseException(Integer errcode, String errmsg, boolean writableStackTrace) {
+        super(errmsg, null, false, writableStackTrace);
+        this.errcode = errcode;
+        this.errmsg = errmsg;
     }
 
     public Integer getErrcode() {
@@ -32,13 +38,5 @@ public class BaseException extends RuntimeException {
 
     public void setErrmsg(String errmsg) {
         this.errmsg = errmsg;
-    }
-
-    public Object getErrdesc() {
-        return errdesc;
-    }
-
-    public void setErrdesc(Object errdesc) {
-        this.errdesc = errdesc;
     }
 }
