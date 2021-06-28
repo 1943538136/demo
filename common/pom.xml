@@ -6,7 +6,6 @@
         <groupId>com.example.demo</groupId>
         <artifactId>parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!--<relativePath/>--> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example.demo</groupId>
     <artifactId>common</artifactId>
@@ -17,8 +16,22 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!--<dependency>
+            <groupId>com.example.demo</groupId>
+            <artifactId>parent</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

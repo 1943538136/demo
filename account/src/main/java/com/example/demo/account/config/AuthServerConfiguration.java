@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -30,7 +31,10 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
     @Resource
     private PasswordEncoder passwordEncoder;
     @Resource
+    private DataSource dataSource;
+    @Resource
     private AuthenticationManager authenticationManager;
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.allowFormAuthenticationForClients();
@@ -61,7 +65,8 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
         // @formatter:off
-        clients.inMemory()
+        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+        /*clients.inMemory()
                 .withClient("reader")
                 .authorizedGrantTypes("password","authorization_code","refresh_token")
                 .secret(passwordEncoder.encode("secret"))
@@ -69,7 +74,7 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
                 .scopes("info")
                 .autoApprove(true)
                 .accessTokenValiditySeconds(600_000_000)
-                .and();
+                .and();*/
         // @formatter:on
     }
 
@@ -84,7 +89,7 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
             RSAPrivateKeySpec privateSpec = new RSAPrivateKeySpec(new BigInteger(modulus), new BigInteger(privateExponent));
             KeyFactory factory = KeyFactory.getInstance("RSA");
             return new KeyPair(factory.generatePublic(publicSpec), factory.generatePrivate(privateSpec));
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }

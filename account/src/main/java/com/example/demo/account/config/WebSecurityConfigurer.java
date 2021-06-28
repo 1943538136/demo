@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 /**
  * Author :tanjm
  * Date:  2021/6/7
@@ -18,6 +21,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
+    @Resource
+    private DataSource dataSource;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -29,9 +35,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password(bcryptPasswordEncoderBean().encode("admin")).roles("USER","ADMIN");
+        auth.jdbcAuthentication().dataSource(dataSource);
+        //.inMemoryAuthentication()
+        //.withUser("admin").password(bcryptPasswordEncoderBean().encode("admin")).roles("USER","ADMIN");
     }
 
     @Bean

@@ -22,6 +22,7 @@
         <nimbus-jose-jwt.version>6.0.2</nimbus-jose-jwt.version>
         <commons-lang3.version>3.10</commons-lang3.version>
         <redisson-starter.version>3.13.6</redisson-starter.version>
+        <druid-starter.version>1.1.22</druid-starter.version>
         <jaxb.version>2.3.0</jaxb.version>
         <aspectj.version>1.9.6</aspectj.version>
     </properties>
@@ -63,6 +64,13 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis-starter.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid-starter.version}</version>
+        </dependency>
+
         <!--        <dependency>
                     <groupId>org.springframework.cloud</groupId>
                     <artifactId>spring-cloud-bus</artifactId>
@@ -138,11 +146,11 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <!--        <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                    <scope>runtime</scope>
-                </dependency>-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!--        <dependency>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-test</artifactId>
@@ -186,35 +194,17 @@
             <artifactId>spring-security-oauth2-resource-server</artifactId>
             <!-- <version>5.4.6</version>-->
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
-        <dependency>
-            <groupId>com.nimbusds</groupId>
-            <artifactId>nimbus-jose-jwt</artifactId>
-            <version>${nimbus-jose-jwt.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>${jaxb.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>${jaxb.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
-       <!-- <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>${redisson-starter.version}</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>org.redisson</groupId>
+             <artifactId>redisson-spring-boot-starter</artifactId>
+             <version>${redisson-starter.version}</version>
+         </dependency>-->
 
         <dependency>
             <groupId>org.aspectj</groupId>
