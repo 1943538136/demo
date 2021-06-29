@@ -19,9 +19,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Order(99)
 @Configuration
 @EnableResourceServer
-public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        //super.configure(http);
+        http.authorizeRequests()
+                .antMatchers("/swagger-ui.html", "/webjars/**", "/v2/**", "/swagger-resources/**").permitAll().and()
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable().cors();
     }
 }

@@ -1,9 +1,11 @@
 package com.example.demo.account.config;
 
+import com.example.demo.account.service.CustomizeClientDetailsService;
+import com.example.demo.account.service.CustomizeUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -13,7 +15,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -28,12 +29,17 @@ import java.security.spec.RSAPublicKeySpec;
 @Configuration
 @EnableAuthorizationServer
 public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapter {
-    @Resource
-    private PasswordEncoder passwordEncoder;
-    @Resource
-    private DataSource dataSource;
+    //@Resource
+    //private PasswordEncoder passwordEncoder;
+    //@Resource
+    //private DataSource dataSource;
     @Resource
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private CustomizeClientDetailsService clientDetailsService;
+    @Autowired
+    private CustomizeUserDetailsService userDetailsService;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -46,6 +52,7 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
         endpoints.accessTokenConverter(jwtAccessTokenConverterBean());
         endpoints.tokenStore(jwtTokenStoreBean());
         endpoints.authenticationManager(authenticationManager);
+        endpoints.userDetailsService(userDetailsService);
     }
 
 
@@ -65,7 +72,8 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
         // @formatter:off
-        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+        //clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+        clients.withClientDetails(clientDetailsService);
         /*clients.inMemory()
                 .withClient("reader")
                 .authorizedGrantTypes("password","authorization_code","refresh_token")

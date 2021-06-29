@@ -18,13 +18,15 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
-        <mybatis-starter.version>2.1.4</mybatis-starter.version>
+        <!--<mybatis-starter.version>2.1.4</mybatis-starter.version>-->
         <nimbus-jose-jwt.version>6.0.2</nimbus-jose-jwt.version>
         <commons-lang3.version>3.10</commons-lang3.version>
         <redisson-starter.version>3.13.6</redisson-starter.version>
         <druid-starter.version>1.1.22</druid-starter.version>
         <jaxb.version>2.3.0</jaxb.version>
         <aspectj.version>1.9.6</aspectj.version>
+        <swagger.version>2.8.0</swagger.version>
+        <mybatis-plus-starter.version>3.3.1</mybatis-plus-starter.version>
     </properties>
     <dependencies>
         <!--        <dependency>
@@ -60,10 +62,15 @@
                     <artifactId>kafka-streams</artifactId>
                 </dependency>-->
         <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus-starter.version}</version>
+        </dependency>
+        <!--<dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis-starter.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -212,6 +219,29 @@
             <version>${aspectj.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+            <!--<exclusions>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>javassist</artifactId>
+                    <groupId>org.javassist</groupId>
+                </exclusion>
+            </exclusions>-->
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>

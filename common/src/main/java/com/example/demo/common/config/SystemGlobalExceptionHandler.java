@@ -3,7 +3,7 @@ package com.example.demo.common.config;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice
-public class ExceptionHandler {
+public class SystemGlobalExceptionHandler {
 
     /**
      * 用来处理bean validation异常

@@ -5,6 +5,8 @@ import com.nimbusds.jose.jwk.RSAKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +31,12 @@ public class OtherController {
     @GetMapping(value = {"", "/", "/index"})
     public String index(HttpServletRequest request, HttpServletResponse response) {
         logger.info("index");
-        return "index"+request.getRemoteUser();
+        return "index" + request.getRemoteUser();
     }
 
- /*   @GetMapping("/")
+/*    @GetMapping("/")
     public String index(@AuthenticationPrincipal AuthorizationServerProperties.Jwt jwt) {
-        return String.format("Hello, %s!", jwt.getSubject());
+        return String.format("Hello, %s!", jwt.);
     }*/
 
     @GetMapping("/message")
