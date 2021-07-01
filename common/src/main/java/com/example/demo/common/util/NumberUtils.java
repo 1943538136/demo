@@ -269,7 +269,7 @@ public class NumberUtils {
         }
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         //BigDecimal v = new BigDecimal("5569820.012555369");
         String s1 = "5569820";
         String s2 = "5569820.012555369";
@@ -286,5 +286,5 @@ public class NumberUtils {
         System.out.println(NumberUtils.format(c, 5));
         System.out.println(NumberUtils.format(d, 5));
         System.out.println(NumberUtils.format(e, 26));
-    }
+    }*/
 }

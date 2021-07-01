@@ -17,13 +17,13 @@ public class MyTest {
     private static Long lock = 1L;
     private static long time = 0;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         for (int i = 0; i < 2000; i++) {
             EXECUTOR_POOL.execute(() -> {
                 Random random = new Random();
                 Long s1 = random.nextLong();
                 Long s2 = Long.valueOf(s1);
-                /*long st = System.currentTimeMillis();
+                *//*long st = System.currentTimeMillis();
                 String msg = "";
                 try {
                     aVoid(0, 6000);
@@ -34,7 +34,7 @@ public class MyTest {
                 long _t = en - st;
                 synchronized (lock) {
                     time += _t;
-                }*/
+                }*//*
                 System.out.println(s1 + "-" + s2 + "-->> "+(s1==s2));
                 //System.out.println(s1==s2);
                 //System.out.println(st + "-->>" + en + " " + Thread.currentThread().getName() + "：当前线程耗时：" + _t + ",总耗时：" + time + "," + msg);
@@ -44,7 +44,7 @@ public class MyTest {
         //耗时：4819,current:1000,max:1000
         //耗时：4763,current:1000,max:1000
         //耗时：4936,current:1000,max:1000
-    }
+    }*/
 
     public static void aVoid(int current, int max) throws InterruptedException {
         long st = System.currentTimeMillis();

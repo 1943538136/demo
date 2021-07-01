@@ -1,7 +1,7 @@
 package com.example.demo.account.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.demo.account.entity.AccountAuthDefinition;
+import com.example.demo.account.entity.AccountAuthDef;
 import com.example.demo.account.entity.AccountUserRole;
 
 import java.util.List;
@@ -15,5 +15,5 @@ public interface AccountUserRoleMapper extends BaseMapper<AccountUserRole> {
      * @param username
      * @return
      */
-    List<AccountAuthDefinition> qryUserAuthority(String username);
+    List<AccountAuthDef> qryUserAuthority(String username);
 }

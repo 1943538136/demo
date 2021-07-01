@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author tanjm
  */
 @TableName("account_role_def")
-public class AccountRoleDefinition extends CommonEntity implements Serializable {
+public class AccountRoleDef extends CommonEntity implements Serializable {
     private static final long serialVersionUID = 449751940501894536L;
     private String code;
     private String name;

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.account.mapper.AccountUserRoleMapper">
+
+    <select id="qryUserAuthority" resultType="com.example.demo.account.entity.AccountAuthDef">
+        SELECT DISTINCT aad.code
+        FROM account_login_account ala,
+        account_user_role aur,
+        account_role_def ard,
+        account_role_auth ara,
+        account_auth_def aad
+        WHERE
+        ala.user_id=aur.user_id
+        AND ard.enabled=1
+        AND aur.role_id=ard.id
+        AND ard.id=ara.role_id
+        AND aad.enabled=1
+        AND ara.auth_id=aad.id
+        AND ala.username=#{username}
+    </select>
+</mapper>

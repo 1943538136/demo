@@ -2,11 +2,10 @@ package com.example.demo.account.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.example.demo.account.entity.AccountAuthDefinition;
+import com.example.demo.account.entity.AccountAuthDef;
 import com.example.demo.account.entity.AccountLoginAccount;
-import com.example.demo.account.entity.AccountLoginAuthoritie;
 import com.example.demo.account.mapper.AccountLoginAccountMapper;
-import com.example.demo.account.mapper.AccountLoginAuthoritieMapper;
+import com.example.demo.account.mapper.AccountUserRoleMapper;
 import com.example.demo.account.model.CustomizeUserDetail;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -31,31 +30,20 @@ public class CustomizeUserDetailsService implements UserDetailsService {
     @Resource
     private AccountLoginAccountMapper accountLoginAccountMapper;
     @Resource
-    private AccountLoginAuthoritieMapper accountLoginAuthoritieMapper;
+    private AccountUserRoleMapper accountUserRoleMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //logger.info(username);
         if (StringUtils.isBlank(username)) {
             logger.error("[username] cannot be empty,please check!!!");
             throw new UsernameNotFoundException("[username] cannot be empty,please check!!!");
         }
         AccountLoginAccount accountLoginAccount = null;
-        List<AccountAuthDefinition> accountLoginAuthorities = null;
-        {
-            LambdaQueryWrapper<AccountLoginAccount> queryWrapper = Wrappers.lambdaQuery();
-            queryWrapper.eq(AccountLoginAccount::getUsername, username);
-            accountLoginAccount = accountLoginAccountMapper.selectOne(queryWrapper);
-        }
-
-        if (null != accountLoginAccount) {
-            LambdaQueryWrapper<AccountLoginAuthoritie> queryWrapper = Wrappers.lambdaQuery();
-            queryWrapper.eq(AccountLoginAuthoritie::getUserId, accountLoginAccount.getUserId());
-            accountLoginAuthorities = accountLoginAuthoritieMapper.selectList(queryWrapper);
-        } else {
-            logger.error("[AccountLoginAccount] data not found,please check!!!");
-            throw new UsernameNotFoundException("[AccountLoginAccount] data not found,please check!!!");
-        }
+        List<AccountAuthDef> accountLoginAuthorities = null;
+        LambdaQueryWrapper<AccountLoginAccount> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(AccountLoginAccount::getUsername, username);
+        accountLoginAccount = accountLoginAccountMapper.selectOne(queryWrapper);
+        accountLoginAuthorities = accountUserRoleMapper.qryUserAuthority(username);
         return new CustomizeUserDetail(accountLoginAccount, accountLoginAuthorities);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.demo.account.model;
 
+import com.example.demo.account.entity.AccountAuthDef;
 import com.example.demo.account.entity.AccountLoginAccount;
-import com.example.demo.account.entity.AccountLoginAuthoritie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,20 +31,20 @@ public class CustomizeUserDetail implements UserDetails, Serializable {
     private Boolean enabled;
     private List<CustomizeAuthority> authorities;
 
-    public CustomizeUserDetail(AccountLoginAccount loginAccount, List<AccountLoginAuthoritie> loginAuthorities) {
+    public CustomizeUserDetail(AccountLoginAccount loginAccount, List<AccountAuthDef> accountAuthDefs) {
         if (null == loginAccount) {
-            logger.error("[AccountLoginAccount] cannot be empty,please check!!!");
+            logger.error("[AccountLoginAccount] cannot be null,please check!!!");
             throw new UsernameNotFoundException("[AccountLoginAccount] data not found,please check!!!");
         }
         this.username = loginAccount.getUsername();
         this.password = loginAccount.getPassword();
         this.enabled = loginAccount.getEnabled();
-        if (null == loginAuthorities || loginAuthorities.isEmpty()) {
+        if (null == accountAuthDefs || accountAuthDefs.isEmpty()) {
             this.authorities = new ArrayList<>();
         } else {
 
-            Set<String> set = loginAuthorities.stream().map(accountLoginAuthoritie -> accountLoginAuthoritie.getAuthority()).collect(Collectors.toSet());
-            authorities = set.stream().map(authority -> new CustomizeAuthority(authority)).collect(Collectors.toList());
+            Set<String> set = accountAuthDefs.stream().map(accountLoginAuthoritie -> accountLoginAuthoritie.getCode()).collect(Collectors.toSet());
+            this.authorities = set.stream().map(CustomizeAuthority::new).collect(Collectors.toList());
         }
     }
 

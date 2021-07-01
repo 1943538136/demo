@@ -7,7 +7,7 @@ logging:
     root: info
     druid:
       sql:
-        Statement: DEBUG
+        Statement: info
   #security:
     #oauth2:
       #client:

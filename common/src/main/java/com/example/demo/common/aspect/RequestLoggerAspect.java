@@ -1,6 +1,7 @@
 package com.example.demo.common.aspect;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.demo.common.util.JsonUtils;
+import com.example.demo.common.util.RegexUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -24,6 +25,8 @@ import java.util.Map;
 @Component
 public class RequestLoggerAspect {
     private static final Logger logger = LoggerFactory.getLogger(RequestLoggerAspect.class);
+    private static final String ACCESS_TOKEN_PATTERN = "(access_token[ ]{0,5}?=[ ]{0,5}?[A-Za-z0-9_\\+\\/\\-\\=]+\\.[A-Za-z0-9_\\+\\/\\-\\=]+\\.[A-Za-z0-9_\\+\\/\\-\\=]+)";
+
     @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
     private void pointcutGetMapping() {
     }
@@ -51,10 +54,14 @@ public class RequestLoggerAspect {
             //这个RequestContextHolder是Springmvc提供来获得请求的东西
             RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
             HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-            ObjectMapper objectMapper = new ObjectMapper();
             StringBuffer loggerStringBuffer = new StringBuffer();
-            if (StringUtils.isNoneBlank(request.getQueryString())) {
-                loggerStringBuffer.append("?").append(request.getQueryString());
+            String queryString = request.getQueryString();
+            if (StringUtils.isNoneBlank(queryString)) {
+                if (queryString.indexOf("access_token") > -1) {
+                    String text = RegexUtils.getMatchingContent(ACCESS_TOKEN_PATTERN, queryString);
+                    queryString = queryString.replace(text, "access_token=${ACCESS_TOKEN}");
+                }
+                loggerStringBuffer.append("?").append(queryString);
             }
             if (request.getParameterMap().size() > 0) {
                 Enumeration<String> parameterNames = request.getParameterNames();
@@ -62,6 +69,9 @@ public class RequestLoggerAspect {
                 while (parameterNames.hasMoreElements()) {
                     //参数名
                     String key = parameterNames.nextElement();
+                    if (null != key && "access_token".equals(key.trim().toLowerCase())) {
+                        continue;
+                    }
                     //值
                     String[] values = request.getParameterValues(key);
                     if (values != null && values.length == 1) {
@@ -70,13 +80,13 @@ public class RequestLoggerAspect {
                         map.put(key, values);
                     }
                 }
-                loggerStringBuffer.append(" Parm[").append(objectMapper.writeValueAsString(map)).append("]");
+                loggerStringBuffer.append(" Parms[").append(JsonUtils.writeAsString(map)).append("]");
             }
             for (Object obj : args) {
-                if(obj instanceof ServletRequest){
+                if (obj instanceof ServletRequest) {
                     continue;
                 }
-                if(obj instanceof ServletResponse){
+                if (obj instanceof ServletResponse) {
                     continue;
                 }
             }

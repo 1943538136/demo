@@ -2,10 +2,14 @@ package com.example.demo.account.config;
 
 import com.example.demo.account.service.CustomizeClientDetailsService;
 import com.example.demo.account.service.CustomizeUserDetailsService;
+import com.example.demo.common.core.CustomizeJwtTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -27,15 +31,15 @@ import java.security.spec.RSAPublicKeySpec;
  * Desc:
  */
 @Configuration
+//@EnableWebSecurity
 @EnableAuthorizationServer
 public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapter {
-    //@Resource
-    //private PasswordEncoder passwordEncoder;
-    //@Resource
-    //private DataSource dataSource;
     @Resource
     private AuthenticationManager authenticationManager;
-
+    @Resource
+    private JwtTokenStore jwtTokenStore;
+    @Resource
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
     @Autowired
     private CustomizeClientDetailsService clientDetailsService;
     @Autowired
@@ -45,45 +49,25 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.allowFormAuthenticationForClients();
         security.tokenKeyAccess("isAuthenticated()");
+
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.accessTokenConverter(jwtAccessTokenConverterBean());
-        endpoints.tokenStore(jwtTokenStoreBean());
+        endpoints.tokenStore(jwtTokenStore);
+        endpoints.accessTokenConverter(jwtAccessTokenConverter);
         endpoints.authenticationManager(authenticationManager);
         endpoints.userDetailsService(userDetailsService);
+        endpoints.reuseRefreshTokens(false);
     }
 
 
-    @Bean
-    public JwtTokenStore jwtTokenStoreBean() {
-        return new JwtTokenStore(jwtAccessTokenConverterBean());
-    }
 
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverterBean() {
-        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setSigningKey("cjs");
-        return jwtAccessTokenConverter;
-    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
-        // @formatter:off
-        //clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
         clients.withClientDetails(clientDetailsService);
-        /*clients.inMemory()
-                .withClient("reader")
-                .authorizedGrantTypes("password","authorization_code","refresh_token")
-                .secret(passwordEncoder.encode("secret"))
-                .redirectUris("http://localhost:8091/mgt/login","http://localhost:8091/mgt/callback")
-                .scopes("info")
-                .autoApprove(true)
-                .accessTokenValiditySeconds(600_000_000)
-                .and();*/
-        // @formatter:on
     }
 
     @Bean
@@ -101,4 +85,16 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
             throw new IllegalArgumentException(e);
         }
     }
+
+/*    @Bean
+    public JwtTokenStore jwtTokenStoreBean() {
+        return new CustomizeJwtTokenStore(jwtAccessTokenConverterBean());
+    }
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverterBean() {
+        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey("cjs");
+        return jwtAccessTokenConverter;
+    }*/
 }

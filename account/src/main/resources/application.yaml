@@ -4,10 +4,10 @@ server:
     context-path: /account
 logging:
   level:
-    root: info
+    root: debug
     druid:
       sql:
-        Statement: DEBUG
+        Statement: info
 spring:
   profiles:
     active: dev

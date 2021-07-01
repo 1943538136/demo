@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author tanjm
  */
 @TableName("account_auth_def")
-public class AccountAuthDefinition extends CommonEntity implements Serializable {
+public class AccountAuthDef extends CommonEntity implements Serializable {
     private static final long serialVersionUID = 4392418505983501297L;
     private String code;
     private String name;
