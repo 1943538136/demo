@@ -25,7 +25,7 @@ import java.util.Map;
 @Component
 public class RequestLoggerAspect {
     private static final Logger logger = LoggerFactory.getLogger(RequestLoggerAspect.class);
-    private static final String ACCESS_TOKEN_PATTERN = "(access_token[ ]{0,5}?=[ ]{0,5}?[A-Za-z0-9_\\+\\/\\-\\=]+\\.[A-Za-z0-9_\\+\\/\\-\\=]+\\.[A-Za-z0-9_\\+\\/\\-\\=]+)";
+    //private static final String ACCESS_TOKEN_PATTERN = "(access_token[ ]{0,5}?=[ ]{0,5}?[A-Za-z0-9_\\+\\/\\-\\=]+\\.[A-Za-z0-9_\\+\\/\\-\\=]+\\.[A-Za-z0-9_\\+\\/\\-\\=]+)";
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
     private void pointcutGetMapping() {
@@ -55,29 +55,28 @@ public class RequestLoggerAspect {
             RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
             HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
             StringBuffer loggerStringBuffer = new StringBuffer();
-            String queryString = request.getQueryString();
-            if (StringUtils.isNoneBlank(queryString)) {
-                if (queryString.indexOf("access_token") > -1) {
-                    String text = RegexUtils.getMatchingContent(ACCESS_TOKEN_PATTERN, queryString);
-                    queryString = queryString.replace(text, "access_token=${ACCESS_TOKEN}");
-                }
-                loggerStringBuffer.append("?").append(queryString);
-            }
             if (request.getParameterMap().size() > 0) {
                 Enumeration<String> parameterNames = request.getParameterNames();
-                Map<String, Object> map = new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<>(64);
                 while (parameterNames.hasMoreElements()) {
                     //参数名
                     String key = parameterNames.nextElement();
-                    if (null != key && "access_token".equals(key.trim().toLowerCase())) {
+                    if (null != key && "access_token".equalsIgnoreCase(key.trim())) {
+                        //忽略access_token
+                        map.put(key, "${ACCESS_TOKEN}");
                         continue;
-                    }
-                    //值
-                    String[] values = request.getParameterValues(key);
-                    if (values != null && values.length == 1) {
-                        map.put(key, values[0]);
+                    } else if (null != key && "refresh_token".equalsIgnoreCase(key.trim())) {
+                        //忽略refresh_token
+                        map.put(key, "${REFRESH_TOKEN}");
+                        continue;
                     } else {
-                        map.put(key, values);
+                        //值
+                        String[] values = request.getParameterValues(key);
+                        if (values != null && values.length == 1) {
+                            map.put(key, values[0]);
+                        } else {
+                            map.put(key, values);
+                        }
                     }
                 }
                 loggerStringBuffer.append(" Parms[").append(JsonUtils.writeAsString(map)).append("]");

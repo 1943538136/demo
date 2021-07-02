@@ -2,8 +2,10 @@ package com.example.demo.order.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class OtherController {
     private static final Logger logger = LoggerFactory.getLogger(OtherController.class);
 
+    //@RolesAllowed({ "USER"})
     @ResponseBody
     @GetMapping(value = {"", "/", "/index"})
     public String index(HttpServletRequest request, HttpServletResponse response) {
