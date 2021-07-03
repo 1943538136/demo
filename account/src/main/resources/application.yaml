@@ -15,11 +15,6 @@ spring:
     name: account
   devtools:
     add-properties: false
-#  security:
-      #    oauth2:
-      #      resourceserver:
-      #       jwt:
-  #         jwk-set-uri: http://localhost:8090/account/.well-known/jwks.json
   datasource:
     username: root
     password:

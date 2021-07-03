@@ -21,12 +21,13 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 请求日志
+ */
 @Aspect
 @Component
 public class RequestLoggerAspect {
     private static final Logger logger = LoggerFactory.getLogger(RequestLoggerAspect.class);
-    //private static final String ACCESS_TOKEN_PATTERN = "(access_token[ ]{0,5}?=[ ]{0,5}?[A-Za-z0-9_\\+\\/\\-\\=]+\\.[A-Za-z0-9_\\+\\/\\-\\=]+\\.[A-Za-z0-9_\\+\\/\\-\\=]+)";
-
     @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
     private void pointcutGetMapping() {
     }

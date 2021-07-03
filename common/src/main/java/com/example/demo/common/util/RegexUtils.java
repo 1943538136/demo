@@ -17,7 +17,6 @@ public class RegexUtils {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
-            //System.out.println(matcher.groupCount());
             int groupcount = matcher.groupCount();
             for (int i = 0; i <= groupcount; i++) {
                 return matcher.group(1);
