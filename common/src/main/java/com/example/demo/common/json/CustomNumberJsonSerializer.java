@@ -1,6 +1,6 @@
 package com.example.demo.common.json;
 
-import com.example.demo.common.annotation.JacksonFormat;
+import com.example.demo.common.annotation.JacksonExpand;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonStreamContext;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -30,8 +30,8 @@ public class CustomNumberJsonSerializer extends JsonSerializer<Object> {
             Field findField = ReflectionUtils.findField(currentValue.getClass(), currentName);
             findField.setAccessible(true);
             // 设置age的值，必须指明修改的是哪个对象的属性
-            JacksonFormat jacksonFormat = findField.getAnnotation(JacksonFormat.class);
-            if (null != jacksonFormat) {
+            JacksonExpand jacksonExpand = findField.getAnnotation(JacksonExpand.class);
+            if (null != jacksonExpand) {
                 //Class enumClass = resExpandFormat.enumClass();
 
                 //gen.writeStringField(currentName + "OfText", null != enumText ? enumText : "");

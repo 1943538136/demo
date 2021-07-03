@@ -11,6 +11,6 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface JacksonFormat {
+public @interface JacksonExpand {
     Class<? extends Enum<?>> enumClass() default IgnoreEnum.class;
 }
