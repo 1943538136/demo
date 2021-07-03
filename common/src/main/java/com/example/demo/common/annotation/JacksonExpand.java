@@ -13,4 +13,16 @@ import java.lang.annotation.*;
 @Documented
 public @interface JacksonExpand {
     Class<? extends Enum<?>> enumClass() default IgnoreEnum.class;
+
+    /**
+     * 数字格式
+     * @return
+     */
+    String pattern() default "";
+
+    /**
+     * 保留小数位
+     * @return
+     */
+    int scale() default -1;
 }

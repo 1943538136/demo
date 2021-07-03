@@ -1,10 +1,12 @@
 package com.example.demo.common.json;
 
 import com.example.demo.common.annotation.JacksonExpand;
+import com.example.demo.common.util.NumberUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonStreamContext;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
@@ -17,11 +19,11 @@ import java.lang.reflect.Field;
  * Date:  2021/5/25
  * Desc:
  */
-public class CustomNumberJsonSerializer extends JsonSerializer<Object> {
+public class CustomNumberJsonSerializer extends JsonSerializer<Number> {
     private static final Logger logger = LoggerFactory.getLogger(CustomNumberJsonSerializer.class);
 
     @Override
-    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(Number value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         JsonStreamContext outputContext = gen.getOutputContext();
         Object currentValue = outputContext.getCurrentValue();
         // 这里获取了序列化的属性
@@ -33,8 +35,15 @@ public class CustomNumberJsonSerializer extends JsonSerializer<Object> {
             JacksonExpand jacksonExpand = findField.getAnnotation(JacksonExpand.class);
             if (null != jacksonExpand) {
                 //Class enumClass = resExpandFormat.enumClass();
-
-                //gen.writeStringField(currentName + "OfText", null != enumText ? enumText : "");
+                String pattern = jacksonExpand.pattern();
+                int scale = jacksonExpand.scale();
+                if (StringUtils.isNotBlank(pattern)) {
+                    gen.writeString(NumberUtils.format(value, pattern));
+                } else if (scale > -1) {
+                    gen.writeString(NumberUtils.format(value, scale));
+                } else {
+                    gen.writeObject(value);
+                }
             }
         }
     }
