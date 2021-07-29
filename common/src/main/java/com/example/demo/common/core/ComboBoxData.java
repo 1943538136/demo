@@ -1,5 +1,7 @@
 package com.example.demo.common.core;
 
+import java.io.Serializable;
+
 /**
  * Author :tanjm
  * Date:  2021/6/24
@@ -7,7 +9,8 @@ package com.example.demo.common.core;
  *
  * @author tanjm
  */
-public class ComboBoxData<V, T> {
+public class ComboBoxData<V, T>  implements Serializable {
+    private static final long serialVersionUID = 8794411099975972694L;
     private V value;
     private T text;
 

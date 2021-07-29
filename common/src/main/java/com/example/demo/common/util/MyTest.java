@@ -1,10 +1,17 @@
 package com.example.demo.common.util;
 
-import com.example.demo.common.exception.SysException;
-import com.example.demo.common.exception.ValException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.TimeoutException;
 
-import java.util.Random;
-import java.util.concurrent.*;
+import org.hyperledger.fabric.gateway.Contract;
+import org.hyperledger.fabric.gateway.ContractException;
+import org.hyperledger.fabric.gateway.Gateway;
+import org.hyperledger.fabric.gateway.Network;
+import org.hyperledger.fabric.gateway.Wallet;
+import org.hyperledger.fabric.gateway.Wallets;
 
 /**
  * Author :tanjm
@@ -12,52 +19,37 @@ import java.util.concurrent.*;
  * Desc:
  */
 public class MyTest {
-    private static ExecutorService EXECUTOR_POOL = new ThreadPoolExecutor(10, 10, 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
+/*    public static void main(String[] args) throws IOException {
+        // Load an existing wallet holding identities used to access the network.
+        Path walletDirectory = Paths.get("wallet");
+        Wallet wallet = Wallets.newFileSystemWallet(walletDirectory);
 
-    private static Long lock = 1L;
-    private static long time = 0;
+        // Path to a common connection profile describing the network.
+        Path networkConfigFile = Paths.get("connection.json");
 
-    /*public static void main(String[] args) {
-        for (int i = 0; i < 2000; i++) {
-            EXECUTOR_POOL.execute(() -> {
-                Random random = new Random();
-                Long s1 = random.nextLong();
-                Long s2 = Long.valueOf(s1);
-                *//*long st = System.currentTimeMillis();
-                String msg = "";
-                try {
-                    aVoid(0, 6000);
-                } catch (Exception e) {
-                    msg = e.getMessage();
-                }
-                long en = System.currentTimeMillis();
-                long _t = en - st;
-                synchronized (lock) {
-                    time += _t;
-                }*//*
-                System.out.println(s1 + "-" + s2 + "-->> "+(s1==s2));
-                //System.out.println(s1==s2);
-                //System.out.println(st + "-->>" + en + " " + Thread.currentThread().getName() + "：当前线程耗时：" + _t + ",总耗时：" + time + "," + msg);
-            });
+        // Configure the gateway connection used to access the network.
+        Gateway.Builder builder = Gateway.createBuilder()
+                .identity(wallet, "user1")
+                .networkConfig(networkConfigFile);
+
+        // Create a gateway connection
+        try (Gateway gateway = builder.connect()) {
+
+            // Obtain a smart contract deployed on the network.
+            Network network = gateway.getNetwork("mychannel");
+            Contract contract = network.getContract("fabcar");
+
+            // Submit transactions that store state to the ledger.
+            byte[] createCarResult = contract.createTransaction("createCar")
+                    .submit("CAR10", "VW", "Polo", "Grey", "Mary");
+            System.out.println(new String(createCarResult, StandardCharsets.UTF_8));
+
+            // Evaluate transactions that query state from the ledger.
+            byte[] queryAllCarsResult = contract.evaluateTransaction("queryAllCars");
+            System.out.println(new String(queryAllCarsResult, StandardCharsets.UTF_8));
+
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
         }
-        //耗时：4846,current:1000,max:1000
-        //耗时：4819,current:1000,max:1000
-        //耗时：4763,current:1000,max:1000
-        //耗时：4936,current:1000,max:1000
     }*/
-
-    public static void aVoid(int current, int max) throws InterruptedException {
-        long st = System.currentTimeMillis();
-        current++;
-        if (current == max) {
-            //throw new ValException("current:" + current + ",max:" + max);
-            return;
-        } else {
-            //Random random = new Random();
-            //Thread.sleep(10);
-            long en = System.currentTimeMillis();
-            //System.out.println(en - st);
-            aVoid(current, max);
-        }
-    }
 }

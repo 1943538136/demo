@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * Author :tanjm
  * Date:  2021/6/30
  * Desc:
+ * @author tanjm
  */
 public class RedisJwtTokenStore extends JwtTokenStore {
     private static final Logger logger = LoggerFactory.getLogger(RedisJwtTokenStore.class);

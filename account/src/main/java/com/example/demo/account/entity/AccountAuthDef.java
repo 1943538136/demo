@@ -20,6 +20,7 @@ public class AccountAuthDef extends CommonEntity implements Serializable {
     private String desc;
     private Boolean enabled;
     private String remark;
+    private Long upperId;
 
     public String getCode() {
         return code;
@@ -59,5 +60,13 @@ public class AccountAuthDef extends CommonEntity implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Long getUpperId() {
+        return upperId;
+    }
+
+    public void setUpperId(Long upperId) {
+        this.upperId = upperId;
     }
 }

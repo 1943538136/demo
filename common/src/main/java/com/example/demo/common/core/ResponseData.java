@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author tanjm
  */
 public class ResponseData<T> implements Serializable {
+    private static final long serialVersionUID = -2901595145147318555L;
     private Integer errcode;
     private String errmsg;
     private T data;

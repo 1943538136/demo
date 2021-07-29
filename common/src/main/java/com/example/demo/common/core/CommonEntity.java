@@ -7,8 +7,10 @@ import java.time.LocalDateTime;
  * Author :tanjm
  * Date:  2021/6/29
  * Desc:
+ * @author tanjm
  */
 public class CommonEntity implements Serializable {
+    private static final long serialVersionUID = 2107419890977148627L;
     /**
      * 记录主键
      */
@@ -16,7 +18,8 @@ public class CommonEntity implements Serializable {
     /**
      * 创建人UserID
      */
-    protected Long creator;
+    protected Long creatorId;
+    protected String creatorName;
     /**
      * 创建时间
      */
@@ -24,7 +27,8 @@ public class CommonEntity implements Serializable {
     /**
      * 最后修改人UserID
      */
-    protected Long modifier;
+    protected Long modifierId;
+    protected String modifierName;
     /**
      *最后修改时间
      */
@@ -38,12 +42,20 @@ public class CommonEntity implements Serializable {
         this.id = id;
     }
 
-    public Long getCreator() {
-        return creator;
+    public Long getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreator(Long creator) {
-        this.creator = creator;
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
     }
 
     public LocalDateTime getCreateTime() {
@@ -54,12 +66,20 @@ public class CommonEntity implements Serializable {
         this.createTime = createTime;
     }
 
-    public Long getModifier() {
-        return modifier;
+    public Long getModifierId() {
+        return modifierId;
     }
 
-    public void setModifier(Long modifier) {
-        this.modifier = modifier;
+    public void setModifierId(Long modifierId) {
+        this.modifierId = modifierId;
+    }
+
+    public String getModifierName() {
+        return modifierName;
+    }
+
+    public void setModifierName(String modifierName) {
+        this.modifierName = modifierName;
     }
 
     public LocalDateTime getModifyTime() {

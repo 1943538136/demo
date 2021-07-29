@@ -5,26 +5,26 @@ import com.example.demo.common.core.CommonEntity;
 import java.io.Serializable;
 
 /**
- * 系统枚举值
+ * 系统枚举定义
  * Author :tanjm
  * Date:  2021/7/3
  * Desc:
- * @author tanjm
  */
-public class SystemEnumDetail extends CommonEntity implements Serializable {
-    private static final long serialVersionUID = 103617291726036943L;
-    private String value;
+public class SystemOrgDef extends CommonEntity implements Serializable {
+    private static final long serialVersionUID = 2873082915096698401L;
+    private String code;
     private String name;
     private String desc;
+    private Boolean enabled;
     private String remark;
-    private Long enumId;
+    private Long upperId;
 
-    public String getValue() {
-        return value;
+    public String getCode() {
+        return code;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -43,6 +43,14 @@ public class SystemEnumDetail extends CommonEntity implements Serializable {
         this.desc = desc;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -51,11 +59,11 @@ public class SystemEnumDetail extends CommonEntity implements Serializable {
         this.remark = remark;
     }
 
-    public Long getEnumId() {
-        return enumId;
+    public Long getUpperId() {
+        return upperId;
     }
 
-    public void setEnumId(Long enumId) {
-        this.enumId = enumId;
+    public void setUpperId(Long upperId) {
+        this.upperId = upperId;
     }
 }
