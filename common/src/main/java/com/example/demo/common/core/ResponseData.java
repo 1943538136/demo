@@ -13,36 +13,24 @@ import java.io.Serializable;
  */
 public class ResponseData<T> implements Serializable {
     private static final long serialVersionUID = -2901595145147318555L;
+    private Boolean success;
     private Integer errcode;
     private String errmsg;
     private T data;
 
-    public ResponseData() {
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public ResponseData(Integer errcode, String errmsg) {
-        this(errcode, errmsg, null);
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
-    public ResponseData(SysError error) {
-        this(error, null);
-    }
-
-    public ResponseData(SysError error, T data) {
-        this(error.getErrcode(), error.getErrmsg(), data);
-    }
-
-    public ResponseData(Integer errcode, String errmsg, T data) {
-        this.errcode = errcode;
-        this.errmsg = errmsg;
-        this.data = data;
-    }
-
-    public int getErrcode() {
+    public Integer getErrcode() {
         return errcode;
     }
 
-    public void setErrcode(int errcode) {
+    public void setErrcode(Integer errcode) {
         this.errcode = errcode;
     }
 
@@ -52,10 +40,6 @@ public class ResponseData<T> implements Serializable {
 
     public void setErrmsg(String errmsg) {
         this.errmsg = errmsg;
-    }
-
-    public void setErrcode(Integer errcode) {
-        this.errcode = errcode;
     }
 
     public T getData() {

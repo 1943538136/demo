@@ -1,0 +1,140 @@
+= 工作交接内容文档
+
+== 安检预警配置
+安检预警重构，把原安检预警级别拆分为独立子表，重构内容包含安检预警配置和安检预警级别判断逻辑。
+
+=== 数据表
+安检预警配置数据表位于【steel_cylinder】库，分为主【sec_order_alert_config】、子表【sec_order_alert_config_level】，字表存储预警级别相关配置。
+
+=== 代码
+* Dubbo接口定义类为SecOrderAlertConfigRemoteApi，其实现接口为SecOrderAlertConfigRemoteImpl；所有相关配置代码都在cylinder-service工程。
+* 安检预警级别处理逻辑代码位于cn.jn.retail.cylinder.provider.remote.impl.SecOrderSecurityInfoRemoteImpl.getSecOrderAlertConfigLevel方法。
+* 新增安检单设置默认安检预警图标，代码位于cn.jn.retail.cylinder.provider.remote.impl.SecOrderRemoteImpl#save方法。
+
+
+== 评价及配置
+包含评价配置、用户评价、评价管理功能。
+
+=== 数据表
+* 评价配置数据存储于【order_work】库，ods_evaluation_config表，其中包含订单评价配置、维修单评价配置，通过【type】字段区分。
+* 用户评价数据存储于【order_work】库，评价记录表【ods_evaluation_record】、评价图片表【ods_evaluation_record_file】、评价表单表【ods_evaluation_record_form】、评价关联产品表【ods_evaluation_record_prod】；
+其中ods_evaluation_record_form保存用户提交原始配置及选项Json字符串，以供H5查看评价。
+
+=== 代码
+* 应用层类EvaluationConfigController、EvaluationRecordController；
+* 评价配置Dubbo接口定义类为EvaluationConfigServiceApi，其实现接口为EvaluationConfigServiceRemote；所有相关配置代码在order-service工程。
+* 用户评价Dubbo接口定义类为EvaluationRecordServiceApi，其实现接口为EvaluationRecordServiceRemote；相关配置代码在order-service工程。
+* H5提交评价类为EvaluationController，提交后转换填充数据存储于ods_evaluation_record，以供PC评价管理使用，另外根据评价内容提交投诉。
+* 评价管理入口类为EvaluationRecordController，所有管理相关操作全部操作ods_evaluation_record表。
+
+== 系统配置
+
+=== 数据表
+系统配置数据表位于【order_work】库，分为主【ods_system_config_def】、子表【ods_system_config_val】，配置数据以Key-Value形式存储；
+ods_system_config_def存储配置参数定义内容及默认值，ods_system_config_val存储租户自定义配置值；
+
+=== 代码
+* 系统配置Dubbo接口定义类为SystemConfigServiceApi ，其实现接口为SystemConfigServicRemote，应用层类SystemConfigController；
+* 系统配置Key定义类为SystemConfigKeyConsts； 获取系统配置原始值方法cn.jn.retail.order.provider.remote.SystemConfigServicRemote#getEnableEditingConfig，以Key-Value形式返回数据；
+更新系统配置原始值方法cn.jn.retail.order.provider.remote.SystemConfigServicRemote#saveEnableEditingConfig，以Key-Value形式返回数据；
+获取系统配置方法cn.jn.retail.order.provider.remote.SystemConfigServicRemote#getConfigValue(java.lang.Integer)，其中参数影响是否计算预约时间逻辑，参数大于零将计算预约时间取值范围。
+
+
+== 微信公众号名片
+=== 数据表
+微信公众号名片配置数据表位于【user_manage】库，【t_tenant_wechat_biz_card】表；
+
+=== 代码
+系统配置Dubbo接口定义类为TenantWechatBizCardServiceApi ，其实现接口为TenantWechatBizCardServiceRemote，该接口使用继承虚拟服务类AbstractServiceRemote实现基本编辑保存功，重写doAfterOfInsertOrUpdate方法处理修改后刷新历史推广二维码；应用层类TenantWechatBizCardController；
+二维码海报合成工具类cn.jn.retail.common.tools.QRCodeUtil2；
+
+== 微信公众号菜单
+=== 数据表
+微信公众号菜单配置数据表位于【user_manage】库，分为主【t_tenant_wechat_custom_menu】、历史表【t_tenant_wechat_menu_publish_history】;
+t_tenant_wechat_menu_publish_history解决自定义菜单编辑后未发布，不影响旧菜单的菜单事件或消息功能逻辑。
+
+=== 代码
+系统配置Dubbo接口定义类为TenantWechatCustomMenuServiceApi ，其实现接口为TenantWechatCustomMenuServiceRemote，应用层类TenantWechatCustomMenuController；
+
+=== 其他
+自定义菜单发布后，拷贝菜单配置存储到历史表，其中新增media_id字段，存储图片等素材文件标识，该标识发布时从微信服务器获取的。
+
+== 门店通讯录
+门店通讯录数据表位于【user_manage】库，【t_tenant_address_book】表；
+
+=== 代码
+业务功能通过继承AbstractServiceRemote类实现；系统配置Dubbo接口定义类为TenantAddressBookServiceApi ，其实现接口为TenantAddressBookServiceRemote，应用层类TenantAddressBookController；
+
+== 交接
+交接班数据表位于【user_manage】库，【t_tenant_handover_info】表；
+
+=== 代码
+业务功能通过继承AbstractServiceRemote类实现；系统配置Dubbo接口定义类为TenantHandoverInfoServiceApi，其实现接口为TenantHandoverInfoServiceRemote，应用层类TenantHandoverInfoController；
+
+== Json序列化
+Json序列化相关代码位于cn.jn.retail.common.json包下，包含JacksonAnnotationIntrospector实现类及4个序列化类；
+序列化相关注解：
+cn.jn.retail.common.annotation.EnumDictDefinition：枚举定义注解。
+cn.jn.retail.common.annotation.JacksonExpandFormat：Json扩展序列化注解；
+cn.jn.retail.common.annotation.JacksonTenantIdNotEncrypt 租户ID不进行Base64加密序列化注解
+cn.jn.retail.common.annotation.JsonDesensitization 数据脱敏序列化注解；
+
+cn.jn.retail.common.json.JacksonExpandAnnotationIntrospector，自定义定义数据序列化相关实现类cn.jn.retail.common.json.JacksonExpandAnnotationIntrospector#findSerializer；
+cn.jn.retail.common.json.CustomEnumJsonSerializer：枚举序列化；
+cn.jn.retail.common.json.CustomMoneyJsonSerializer：金钱序列化；
+cn.jn.retail.common.json.JsonDesensitizationSerializer：数据脱敏序列化；
+cn.jn.retail.common.json.TenantIdJsonSerializer：租户ID Base64加密序列化；
+cn.jn.retail.common.enums.EnumDictItem：返回前端枚举数据结构；
+cn.jn.retail.common.enums.EnumDictRegistry：枚举定义类，所有对外暴露的枚举必须在此静态类里标记；
+cn.jn.retail.common.enums.ComEnum :枚举接口类，CustomEnumJsonSerializer序列化转化的枚举必须实现的接口；
+
+=== Json序列化——枚举
+* 定义枚举，创建枚举类实现ComEnum接口及@EnumDictDefinition注解，以便应用启动时通过反射加载枚举数据,如：
+[source,java]
+@EnumDictDefinition(enumKey = EnumDictRegistry.ENUM_KEY_OF_COM_ENABLE_ENUM, enumDesc = "通用【启用/禁用】枚举：1、启用；0、禁用；")
+public enum ComEnableEnums implements ComEnum{
+    ENABLE(1, "启用"), DISABLE(0, "禁用");
+    private int code;
+    private String name;
+    ComEnableEnums(int code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+    @Override
+    public int getValue() {
+        return this.code;
+    }
+    @Override
+    public String getText() {
+        return this.name;
+    }
+}
+
+* 在接口响应对象枚举字段上添加@JacksonExpandFormat注解，序列化输出时会在响应Json中自动添加枚举中文名称如:【enableOfText="启用"】
+[source,java]
+@JacksonExpandFormat(enumClass = ComEnableEnums.class)
+private Integer enable;
+
+=== Json序列化——数据脱敏
+在接口响应对象枚举字段上添加@JsonDesensitization注解，序列化输出时会在响应Json中替换为【*】。
+[source,java]
+@JsonDesensitization(prefixLength = 3,suffixLength = 4)//替换手机号码为【152****7896】
+private String phone;
+
+=== Json序列化——金额数值格式化
+在接口响应对象枚举字段上添加@JsonDesensitization注解，并设置moneyFormat参数，序列化输出时会在响应Json中替换为【*】。
+[source,java]
+@JacksonExpandFormat(moneyFormat = "0.00")//订单金额123456（单位：分），自动输出为【1234.56】
+private Integer orderTotalAmount;
+
+=== Json序列化——租户标识（ID）加密
+在接口响应对象中自动对租户标识【tenantId】进行Base64加密，如果不需要进行加密处理，在属性上添加注解@JacksonTenantIdNotEncrypt
+
+
+== Abstract类
+cn.jn.retail.common.api.AbstractController：实现基本分页查询、新增、编辑、删除功能，通过泛型解决Swagger文档属性缺失问题；
+cn.jn.retail.common.api.AbstractServiceApi：Dubbo接口定义类，定义基本分页查询、新增、编辑、删除方法；
+cn.jn.retail.common.api.AbstractServiceRemote ：AbstractServiceApi接口实现类，内置有些空方法，以便继承类重写实现一些特殊业务逻辑；
+
+
+

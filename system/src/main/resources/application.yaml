@@ -12,7 +12,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: order
+    name: system
   devtools:
     add-properties: false
   security:
@@ -20,6 +20,23 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:8090/account/oauth/token_key
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        register: true
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        #instance-id:
+        #health-check-path:
+        health-check-interval: 30s
+        health-check-timeout: 5s
+        health-check-critical-timeout: 1s
+        heartbeat:
+          enabled: true
+          ttl-unit: s
+          ttl-value: 2
   datasource:
     username: root
     password:

@@ -1,7 +1,7 @@
 server:
   port: 8091
-  servlet:
-    context-path: /order
+#  servlet:
+#    context-path: /order
 logging:
   level:
     root: info

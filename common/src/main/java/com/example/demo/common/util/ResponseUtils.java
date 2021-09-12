@@ -9,33 +9,45 @@ import com.example.demo.common.core.ResponseData;
  * Desc:
  */
 public class ResponseUtils {
-    /**
-     * 0 ->> 成功！
-     *
-     * @return
-     */
+
     public static <T> ResponseData<T> success() {
-        ResponseData response = new ResponseData(SysErrorEnum.SUCCESS);
-        return response;
+        return success(null);
     }
 
     public static <T> ResponseData success(T data) {
-        ResponseData response = new ResponseData(SysErrorEnum.SUCCESS, data);
-        return response;
+        return success(null, null, data);
     }
 
-    /**
-     * -1 ->> 系统繁忙！
-     *
-     * @return
-     */
+    public static <T> ResponseData success(Integer errcode, String errmsg, T data) {
+        return getResponseData(true, errcode, errmsg, data);
+    }
+
     public static <T> ResponseData<T> error() {
-        ResponseData response = new ResponseData(SysErrorEnum.SYS_ERROR);
-        return response;
+        return error(null, null);
+    }
+
+    public static <T> ResponseData<T> error(Integer errcode, String errmsg) {
+        return error(errcode, errmsg, null);
     }
 
     public static <T> ResponseData<T> error(Integer errcode, String errmsg, T data) {
-        ResponseData response = new ResponseData(errcode, errmsg, data);
+        return getResponseData(false, errcode, errmsg, data);
+    }
+
+    private static <T> ResponseData<T> getResponseData(Boolean success, Integer errcode, String errmsg, T data) {
+        ResponseData response = new ResponseData();
+        boolean _success = (null != success && success) ? true : false;
+        response.setSuccess(_success);
+        if (_success) {
+            response.setErrcode(null == errcode ? SysErrorEnum.SUCCESS.getErrcode() : errcode);
+            response.setErrmsg(null == errmsg ? SysErrorEnum.SUCCESS.getErrmsg() : errmsg);
+        } else {
+            response.setErrcode(null == errcode ? SysErrorEnum.SYS_ERROR.getErrcode() : errcode);
+            response.setErrmsg(null == errmsg ? SysErrorEnum.SYS_ERROR.getErrmsg() : errmsg);
+        }
+        if (null != data) {
+            response.setData(data);
+        }
         return response;
     }
 

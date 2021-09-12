@@ -63,11 +63,11 @@ public class RequestLoggerAspect {
                     //参数名
                     String key = parameterNames.nextElement();
                     if (null != key && "access_token".equalsIgnoreCase(key.trim())) {
-                        //忽略access_token
+                        //忽略access_token真实参数
                         map.put(key, "${ACCESS_TOKEN}");
                         continue;
                     } else if (null != key && "refresh_token".equalsIgnoreCase(key.trim())) {
-                        //忽略refresh_token
+                        //忽略refresh_token真实参数
                         map.put(key, "${REFRESH_TOKEN}");
                         continue;
                     } else {

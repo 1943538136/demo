@@ -7,18 +7,23 @@ import com.example.demo.common.constant.SysError;
  * Date:  2021/6/22
  * Desc:
  */
-public class BaseException extends RuntimeException {
+
+public abstract class AbstractException extends RuntimeException {
     protected Integer errcode;
     protected String errmsg;
 
-    public BaseException() {
+    public AbstractException() {
     }
 
-    public BaseException(SysError error) {
+    public AbstractException(SysError error) {
         this(error.getErrcode(), error.getErrmsg(), false);
     }
 
-    public BaseException(Integer errcode, String errmsg, boolean writableStackTrace) {
+    public AbstractException(Integer errcode, String errmsg) {
+        this(errcode, errmsg, false);
+    }
+
+    public AbstractException(Integer errcode, String errmsg, boolean writableStackTrace) {
         super(errmsg, null, false, writableStackTrace);
         this.errcode = errcode;
         this.errmsg = errmsg;

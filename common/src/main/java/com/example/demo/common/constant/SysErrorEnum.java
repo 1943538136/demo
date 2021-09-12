@@ -7,10 +7,7 @@ package com.example.demo.common.constant;
  */
 public enum SysErrorEnum implements SysError {
     SUCCESS(0, "成功！"),
-    SYS_ERROR(-1, "系统繁忙！"),
-    PARM_ERROR(1, "参数错误！"),
-    VAL_ERROR(2, "校验错误！"),
-    PROC_ERROR(3, "流程错误！");
+    SYS_ERROR(-1, "系统繁忙,请稍后重试！");
     private Integer errcode;
     private String errmsg;
 
