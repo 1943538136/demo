@@ -19,7 +19,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8090/account/oauth/token_key
+          jwk-set-uri: http://localhost:8080/account/oauth/token_key
   cloud:
     consul:
       host: 127.0.0.1
@@ -37,6 +37,7 @@ spring:
           enabled: true
           ttl-unit: s
           ttl-value: 2
+        instance-id: ${spring.application.name}:${server.port}
   datasource:
     username: root
     password:

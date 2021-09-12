@@ -1,13 +1,16 @@
 package com.example.demo.common.core;
 
-import com.example.demo.common.util.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+/*
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+*/
 
 /**
  * Author :tanjm
@@ -27,7 +30,7 @@ public class RedisJwtTokenStore extends JwtTokenStore {
     public RedisJwtTokenStore(JwtAccessTokenConverter jwtTokenEnhancer) {
         super(jwtTokenEnhancer);
     }
-
+/*
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
         super.storeAccessToken(token, authentication);
@@ -59,9 +62,9 @@ public class RedisJwtTokenStore extends JwtTokenStore {
         if (null == token) {
             return;
         }
-        /*if (REFRESH_TOKEN_STORE.containsKey(token.getValue())) {
+        *//*if (REFRESH_TOKEN_STORE.containsKey(token.getValue())) {
             REFRESH_TOKEN_STORE.remove(token.getValue());
-        }*/
+        }*//*
     }
 
     @Override
@@ -70,22 +73,22 @@ public class RedisJwtTokenStore extends JwtTokenStore {
         if (null == refreshToken) {
             return;
         }
-        /*if (!ACCESS_TOKEN_REF_REFRESH_TOKEN_STORE.containsKey(refreshToken.getValue())) {
+        *//*if (!ACCESS_TOKEN_REF_REFRESH_TOKEN_STORE.containsKey(refreshToken.getValue())) {
             return;
         }
         String tokenValue = ACCESS_TOKEN_REF_REFRESH_TOKEN_STORE.get(refreshToken.getValue());
         if (!ACCESS_TOKEN_STORE.containsKey(tokenValue)) {
             return;
         }
-        ACCESS_TOKEN_STORE.remove(tokenValue);*/
+        ACCESS_TOKEN_STORE.remove(tokenValue);*//*
     }
 
     @Override
     public OAuth2AccessToken readAccessToken(String tokenValue) {
         if (allow) {
-            /*if (!ACCESS_TOKEN_STORE.containsKey(tokenValue)) {
+            *//*if (!ACCESS_TOKEN_STORE.containsKey(tokenValue)) {
                 return null;
-            }*/
+            }*//*
         }
         return super.readAccessToken(tokenValue);
     }
@@ -93,10 +96,10 @@ public class RedisJwtTokenStore extends JwtTokenStore {
     @Override
     public OAuth2RefreshToken readRefreshToken(String tokenValue) {
         if (allow) {
-           /* if (!REFRESH_TOKEN_STORE.containsKey(tokenValue)) {
+           *//* if (!REFRESH_TOKEN_STORE.containsKey(tokenValue)) {
                 return null;
-            }*/
+            }*//*
         }
         return super.readRefreshToken(tokenValue);
-    }
+    }*/
 }

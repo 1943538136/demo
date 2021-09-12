@@ -26,7 +26,8 @@ public class OtherController {
     @GetMapping(value = {"", "/", "/index"})
     public String index(HttpServletRequest request, HttpServletResponse response) {
         logger.info("index");
-        logger.info(accountOtherFeignClient.index());
+        logger.info(accountOtherFeignClient.feignClientTest(request.getRemoteUser()));
         return "index -->>" + request.getRemoteUser();
     }
+
 }

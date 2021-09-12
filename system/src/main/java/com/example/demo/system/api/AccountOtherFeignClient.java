@@ -2,7 +2,8 @@ package com.example.demo.system.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Author :tanjm
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Desc:
  */
 @Component
-@FeignClient("account")
+@FeignClient(name = "account")
 public interface AccountOtherFeignClient {
-    @GetMapping(value = {"", "/", "/index"})
-    String index();
+    @RequestMapping(value =  "/feignClientTest", method = RequestMethod.GET)
+    String feignClientTest(String username);
 }

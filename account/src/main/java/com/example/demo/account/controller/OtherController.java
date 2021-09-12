@@ -2,16 +2,11 @@ package com.example.demo.account.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.MessageFormat;
 
 /**
  * Author :tanjm
@@ -49,5 +44,10 @@ public class OtherController {
     @PostMapping("/message")
     public String createMessage(@RequestBody String message) {
         return String.format("Message was created. Content: %s", message);
+    }
+
+    @RequestMapping(value = "/feignClientTest", method = RequestMethod.GET)
+    public String feignClientTest(String username) {
+        return username + " -->> feignClientTest";
     }
 }

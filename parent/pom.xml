@@ -37,7 +37,7 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <!--        <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -47,7 +47,7 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -64,10 +64,10 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-mail</artifactId>
                 </dependency>-->
-        <!--        <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-quartz</artifactId>
-                </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -117,26 +117,39 @@
                     <groupId>org.springframework.cloud</groupId>
                     <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
                 </dependency>-->
-<!--        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>-->
-        <!--        <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-openfeign</artifactId>
-                </dependency>-->
-<!--        <dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-security</artifactId>
         </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>9.10.1</version>
+        </dependency>
         <!--        <dependency>
                             <groupId>org.springframework.cloud</groupId>
                             <artifactId>spring-cloud-starter-task</artifactId>
                         </dependency>-->
-        <!--        <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-zipkin</artifactId>
-                </dependency>-->
+<!--        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>-->
         <!--        <dependency>
                     <groupId>org.springframework.cloud</groupId>
                     <artifactId>spring-cloud-stream</artifactId>
@@ -149,17 +162,17 @@
                     <groupId>org.springframework.cloud</groupId>
                     <artifactId>spring-cloud-stream-binder-kafka-streams</artifactId>
                 </dependency>-->
-        <!--        <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-stream</artifactId>
-                    <scope>test</scope>
-                    <classifier>test-binder</classifier>
-                    <type>test-jar</type>
-                </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-consul-config</artifactId>
+            <artifactId>spring-cloud-stream</artifactId>
+            <scope>test</scope>
+            <classifier>test-binder</classifier>
+            <type>test-jar</type>
         </dependency>
+<!--        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-consul-config</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-consul-discovery</artifactId>
@@ -185,10 +198,10 @@
                 </dependency>-->
 
 
-        <dependency>
+        <!--<dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
+        </dependency>-->
         <!--<dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
@@ -211,10 +224,10 @@
         </dependency>
 
 
-        <dependency>
+        <!--<dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
+        </dependency>-->
         <!--<dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
@@ -246,16 +259,16 @@
 
 
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-jose -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-jose</artifactId>
-            <!-- <version>5.4.6</version>-->
-        </dependency>
-        <dependency>
+            &lt;!&ndash; <version>5.4.6</version>&ndash;&gt;
+        </dependency>-->
+<!--        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-resource-server</artifactId>
-            <!-- <version>5.4.6</version>-->
-        </dependency>
+            &lt;!&ndash; <version>5.4.6</version>&ndash;&gt;
+        </dependency>-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
