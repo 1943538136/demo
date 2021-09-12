@@ -3,7 +3,9 @@ package com.example.demo.account;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+@EnableFeignClients
 @MapperScan("com.example.demo.account.mapper")
 @SpringBootApplication(scanBasePackages = {"com.example.demo.common", "com.example.demo.account"})
 //@ComponentScan(excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {Oauth2ClientSecurityConfigurer.class})})
