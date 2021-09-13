@@ -46,7 +46,7 @@ public class OtherController {
         return String.format("Message was created. Content: %s", message);
     }
 
-    @RequestMapping(value = "/feignClientTest", method = RequestMethod.GET)
+    @RequestMapping(value = "/feignClientTest", method = RequestMethod.POST)
     public String feignClientTest(String username) {
         return username + " -->> feignClientTest";
     }

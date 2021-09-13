@@ -1,10 +1,10 @@
 server:
-  port: 8092
+  port: 8090
   #servlet:
-    #context-path: /account
+    #context-path: /system
 logging:
   level:
-    root: info
+    root: debug
     druid:
       sql:
         Statement: info
@@ -12,9 +12,14 @@ spring:
   profiles:
     active: dev
   application:
-    name: account
+    name: oauth2
   devtools:
     add-properties: false
+  #security:
+      #oauth2:
+      #resourceserver:
+      #jwt:
+    #jwk-set-uri: http://localhost:8080/account/oauth/token_key
   cloud:
     consul:
       host: 127.0.0.1
@@ -31,7 +36,8 @@ spring:
         heartbeat:
           enabled: true
           ttl-unit: s
-          ttl-value: 30
+          ttl-value: 2
+        instance-id: ${spring.application.name}:${server.port}
   datasource:
     username: root
     password:
@@ -71,4 +77,3 @@ spring:
         stat:
           merge-sql: true
           slow-sql-millis: 5000
-

@@ -1,8 +1,7 @@
-
 server:
-  port: 8080
-#  servlet:
-#    context-path: /system
+  port: 8092
+  #servlet:
+    #context-path: /system
 logging:
   level:
     root: info
@@ -13,21 +12,13 @@ spring:
   profiles:
     active: dev
   application:
-    name: gateway
+    name: admin
   devtools:
     add-properties: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: on
-          lower-case-service-id: true
-          #filters:
-          #  - name: RewritePath
-          #    args:
-          #      regexp: "'/' + serviceId + '/(?<remaining>.*)'"
-          #      replacement: "'/' + serviceId +'/${remaining}'"
-
     consul:
       host: 127.0.0.1
       port: 8500
@@ -44,4 +35,4 @@ spring:
           enabled: true
           ttl-unit: s
           ttl-value: 2
-debug: true
+        instance-id: ${spring.application.name}:${server.port}

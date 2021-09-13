@@ -1,10 +1,10 @@
 server:
   port: 8091
-  servlet:
-    context-path: /system
+  #servlet:
+    #context-path: /system
 logging:
   level:
-    root: info
+    root: debug
     druid:
       sql:
         Statement: info
@@ -15,11 +15,11 @@ spring:
     name: system
   devtools:
     add-properties: false
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8080/account/oauth/token_key
+  #security:
+      #oauth2:
+      #resourceserver:
+      #jwt:
+    #jwk-set-uri: http://localhost:8080/account/oauth/token_key
   cloud:
     consul:
       host: 127.0.0.1

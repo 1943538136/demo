@@ -1,6 +1,7 @@
 package com.example.demo.common.core;
 
-import com.example.demo.common.constant.SysError;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import java.io.Serializable;
 
@@ -11,11 +12,13 @@ import java.io.Serializable;
  *
  * @author tanjm
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseData<T> implements Serializable {
     private static final long serialVersionUID = -2901595145147318555L;
     private Boolean success;
     private Integer errcode;
     private String errmsg;
+    @JsonIncludeProperties
     private T data;
 
     public Boolean getSuccess() {

@@ -52,7 +52,10 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
         endpoints.authenticationManager(authenticationManager);
         endpoints.userDetailsService(userDetailsService);
         endpoints.reuseRefreshTokens(false);
-        endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
+        //endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
+        endpoints.allowedTokenEndpointRequestMethods(HttpMethod.POST);
+        endpoints.approvalStoreDisabled();
+        //endpoints.
     }
 
 

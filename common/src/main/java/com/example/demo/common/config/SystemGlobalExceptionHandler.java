@@ -71,8 +71,15 @@ public class SystemGlobalExceptionHandler {
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler({SysException.class, Exception.class, Throwable.class})
+    @ExceptionHandler(SysException.class)
     public ResponseData resolveSysExceptionHandler(SysException e) {
+        return ResponseUtils.error();
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler({Exception.class, Throwable.class})
+    public ResponseData resolveDefExceptionHandler(Exception e) {
         return ResponseUtils.error();
     }
 }
