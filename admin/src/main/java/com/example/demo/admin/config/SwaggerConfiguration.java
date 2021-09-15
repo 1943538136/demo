@@ -75,4 +75,19 @@ public class SwaggerConfiguration {
                 .description("API 描述")
                 .build();
     }
+
+    /*
+    *
+CYLINDER_CREATE_ARCHIVE
+GAS_STORAGE_FILLING
+HEAVY_BOTTLES_ON_THE_CAR
+HEAVY_BOTTLE_STARTER_STORE
+DELIVERY
+AT_THE_CUSTOMER_HOME
+CHECK_AFTER_RECOVERY
+EMPTY_BOTTLE_BACK_TO_STORE
+EMPTY_BOTTLES_IN_THE_CAR
+EMPTY_BOTTLES_IN_THE_LIBRARY
+    *
+    * */
 }

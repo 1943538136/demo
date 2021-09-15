@@ -14,6 +14,8 @@
         <module>parent</module>
         <module>common</module>
         <module>gateway</module>
+        <module>oauth2</module>
+        <module>admin</module>
         <module>system</module>
         <module>account</module>
         <module>order</module>

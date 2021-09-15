@@ -1,0 +1,30 @@
+= Account 账户认证及鉴权
+
+项目采用Spring Security安全组件，采用JWT token生成策略；
+依赖Common项目，资源服务器配置及默认安全配置于ResourceServerConfiguration；
+重写UserDetailsService、ClientDetailsService服务提供客户端及账户查询服务.
+
+四种授权方式:
+
+* 授权码（authorization-code）:https://b.com/oauth/token?client_id=CLIENT_ID&client_secret=CLIENT_SECRET&grant_type=authorization_code&code=AUTHORIZATION_CODE&redirect_uri=CALLBACK_URL
+* 隐藏式（implicit）:https://b.com/oauth/authorize?response_type=token&client_id=CLIENT_ID&redirect_uri=CALLBACK_URL&scope=read
+* 密码式（password）：https://b.com/oauth/token?grant_type=password& username=USERNAME& password=PASSWORD& client_id=CLIENT_ID
+* 客户端凭证（client credentials）:https://oauth.b.com/token?grant_type=client_credentials&client_id=CLIENT_ID&client_secret=CLIENT_SECRET
+
+---
+=== Api接口
+生成access_token请求示例，/oauth/token?grant_type=password&client_id=${client_id}&client_secret=${client_secret}&username=${username}&password=${password}&scope=${scope}
+
+https://b.com/oauth/token?client_id=CLIENT_ID&client_secret=CLIENT_SECRET& grant_type=authorization_code& code=AUTHORIZATION_CODE& redirect_uri=CALLBACK_URL
+https://b.com/oauth/token?grant_type=password& username=USERNAME& password=PASSWORD& client_id=CLIENT_ID
+---
+刷新access_token请求示例，/oauth/token?grant_type=refresh_token&client_id=${client_id}&client_secret=${client_secret}&refresh_token=${refresh_token}
+
+---
+获取JWT公钥请求示例，/oauth/token_key
+
+---
+?access_token=${access_token}
+Authorization:Bearer ${access_token}
+
+

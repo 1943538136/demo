@@ -4,7 +4,7 @@ server:
     #context-path: /system
 logging:
   level:
-    root: debug
+    root: info
     druid:
       sql:
         Statement: info

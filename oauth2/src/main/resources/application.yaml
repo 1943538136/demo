@@ -30,9 +30,9 @@ spring:
         service-name: ${spring.application.name}
         #instance-id:
         #health-check-path:
-        health-check-interval: 30s
-        health-check-timeout: 5s
-        health-check-critical-timeout: 1s
+        #health-check-interval: 30s
+        #health-check-timeout: 5s
+        #health-check-critical-timeout: 1s
         heartbeat:
           enabled: true
           ttl-unit: s
