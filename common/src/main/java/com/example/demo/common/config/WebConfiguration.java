@@ -12,8 +12,7 @@ import org.springframework.web.filter.CorsFilter;
  * Desc:
  */
 @Configuration
-public class CommonConfiguration {
-
+public class WebConfiguration {
     @Bean
     public CorsFilter corsFilterBean() {
 
@@ -41,9 +40,4 @@ public class CommonConfiguration {
         //返回CorsFilter
         return new CorsFilter(corsConfigurationSource);
     }
-
-/*    @Bean
-    public CacheManager cacheManagerBean() {
-        return new CacheManagerFactoryBean();
-    }*/
 }

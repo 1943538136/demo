@@ -22,12 +22,11 @@ spring:
         locator:
           enabled: on
           lower-case-service-id: true
-          #filters:
-          #  - name: RewritePath
-          #    args:
-          #      regexp: "'/' + serviceId + '/(?<remaining>.*)'"
-          #      replacement: "'/' + serviceId +'/${remaining}'"
-
+          filters:
+            - name: RewritePath
+              args:
+                regexp: "'/' + serviceId + '/(?<remaining>.*)'"
+                replacement: "'/' + serviceId +'/${remaining}'"
     consul:
       host: 127.0.0.1
       port: 8500
@@ -44,4 +43,12 @@ spring:
           enabled: true
           ttl-unit: s
           ttl-value: 2
-debug: true
+        #health-check-path: ${server.servlet.context-path}/actuator/health
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

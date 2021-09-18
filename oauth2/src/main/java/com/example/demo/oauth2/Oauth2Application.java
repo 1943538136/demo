@@ -9,7 +9,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableDiscoveryClient
 @MapperScan("com.example.demo.oauth2.mapper")
-@SpringBootApplication(scanBasePackages = {"com.example.demo.common", "com.example.demo.oauth2"})
+@SpringBootApplication
+//(scanBasePackages = {"com.example.demo.common", "com.example.demo.oauth2"})
 public class Oauth2Application {
 
     public static void main(String[] args) {

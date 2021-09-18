@@ -1,13 +1,16 @@
 server:
   port: 8091
-  #servlet:
-    #context-path: /system
+  servlet:
+    context-path: /system
 logging:
   level:
-    root: info
+    root: debug
     druid:
       sql:
         Statement: info
+    org:
+      apache:
+        http: info
 spring:
   profiles:
     active: dev
@@ -15,11 +18,12 @@ spring:
     name: system
   devtools:
     add-properties: false
-  #security:
-      #oauth2:
-      #resourceserver:
-      #jwt:
-    #jwk-set-uri: http://localhost:8080/account/oauth/token_key
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/oauth2/.well-known/jwks.json
+        #jwk-set-uri: http://localhost:8080/oauth2/oauth/token_key
   cloud:
     consul:
       host: 127.0.0.1
@@ -30,6 +34,7 @@ spring:
         service-name: ${spring.application.name}
         #instance-id:
         #health-check-path:
+        health-check-path: ${server.servlet.context-path}/actuator/health
         health-check-interval: 30s
         health-check-timeout: 5s
         health-check-critical-timeout: 1s
@@ -77,3 +82,12 @@ spring:
         stat:
           merge-sql: true
           slow-sql-millis: 5000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: ${server.servlet.context-path}
+  endpoint:
+    health:
+      show-details: always
